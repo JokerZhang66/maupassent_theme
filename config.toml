@@ -1,0 +1,112 @@
+baseURL = "https://CorPython.github.io/"
+languageCode = "en-us"
+defaultContentLanguage = "zh-cn"
+title = "code show的博客"
+theme = "maupassant-hugo"
+googleAnalytics = "GA ID"
+summaryLength = 140 # 摘要的长度 
+# disqusShortname = "https://CorPython.github.io/"
+disablePathToLower = true
+enableRobotsTXT = true
+preserveTaxonomyNames = true #保持分类的原始名字,不自动变成小写
+[author]
+  name = "code show"
+
+[params]
+  author = "code show"
+  subtitle = "专注于Java、C/C++、python"
+  keywords = "java,c,博客,c++,python,linux"
+  description = "talk is cheap,show me the code"
+  busuanzi = true
+  enableGitalk = true
+  localSearch = true
+  toc = true 
+  #下面加载你自己写的jsapp.js
+  customJS = ['share.js','cus.js','app.js','APlayer.min.js','firework.js','FunnyTitle.js','snow.js']
+  #下面加载你的CSS文件
+  customCSS = ['APlayer.min.css','line.css']
+
+[menu]
+  [[menu.main]]
+      identifier = "books"
+      name = "书单"
+      url = "/books/"
+      weight = 2
+
+  [[menu.main]]
+    identifier = "archives"
+    name = "归档"
+    url = "/archives/"
+    weight = 3
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "分类"
+    url = "/categories/"
+    weight = 4
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "标签"
+    url = "/tags/"
+    weight = 5
+
+  [[menu.main]]
+    identifier = "tool"
+    name = "工具"
+    url = "/tool/"
+    weight = 6
+
+  [[menu.main]]
+    identifier = "about"
+    name = "关于"
+    url = "/about/"
+    weight = 7
+# 友情链接
+[[params.links]]
+  title = "博客"
+  name = "我的github"
+  url = "https://github.com/CorPython/"
+[[params.links]]
+  title = "谷歌"
+  name = "谷歌首页"
+  url = "https://www.google.com/"
+[[params.links]]
+  title = "博客园"
+  name = "博客园首页"
+  url = "https://www.cnblogs.com/"
+[[params.links]]
+  title = "codesheep"
+  name = "codesheep"
+  url = "https://www.codesheep.cn/"
+[[params.links]]
+  title = "颜色对照工具"
+  name = "颜色对照工具"
+  url = "https://www.sioe.cn/yingyong/yanse-rgb-16/"
+# 版权说明
+[params.cc]
+    name = "知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议"
+    link = "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+# 设置在新页面打开超链接
+[Blackfriday]
+    hrefTargetBlank = true
+# gitalk配置
+[params.gitalk] 
+    clientID = "0646c0805e71e693ccea" # Your client ID
+    clientSecret = "ee9386a3dd89764f8304d219f9d82a8db545a731" # Your client secret
+    repo = "CorPython.github.io" # The repo to store comments
+    owner = "CorPython" # Your GitHub ID
+    admin= "CorPython" # Required. Github repository owner and collaborators. (Users who having write access to this repository)
+    id= "location.pathname" # The unique id of the page.
+    labels= "gitalk" # Github issue labels. If you used to use Gitment, you can change it
+    perPage= 15 # Pagination size, with maximum 100.
+    pagerDirection= "last" # Comment sorting direction, available values are 'last' and 'first'.
+    createIssueManually= false # If it is 'false', it is auto to make a Github issue when the administrators login.
+    distractionFreeMode= false # Enable hot key (cmd|ctrl + enter) submit comment.
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.highlight]
+    style = "github"
+  [markup.goldmark]
+      [markup.goldmark.renderer]
+          unsafe = true
