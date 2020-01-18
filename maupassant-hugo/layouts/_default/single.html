@@ -1,0 +1,215 @@
+{{ partial "head" . }}
+<body>
+{{ partial "header" . }}
+    <div id="body">
+        {{ if .Params.toc -}}
+        <!--悬浮目录-->
+        <div id="virtual_toc_list" style="display: none">
+            {{.TableOfContents}}
+        </div>
+        <div id="float_toc_div" style="margin: 10px;border: 1px solid gray;z-index:99999;display: none;">
+            <header
+                style="background-color: #f3f3f3;color: black;border-bottom: 1px solid gray;padding: 10px 10px 10px 10px;">
+                <strong id="toc_btn_open" style="color: black;font-size: large;">目录</strong>
+                <strong id="toc_btn_close" style="color: black;font-size: large;float: right">╳</strong>
+            </header>
+            <div id="toc_list" style="background-color: #f3f3f3;color: black;padding: 10px;">
+
+            </div>
+        </div>
+        <style type="text/css">
+            #float_toc_div {
+                position: fixed;
+                display: none;
+                /* width: 10.6%; */
+                height: auto;
+                font-size: 13px;
+            }
+
+            #toc_list a:hover,
+            #toc_list a:active {
+                color: #ba3925;
+            }
+        </style>
+        {{- end }}
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    <div class="res-cons">
+                        {{ partial "toc" . }}
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">{{ .Title }}</h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                {{ .Date.Year }}年{{ printf "%d" .Date.Month }}月{{ .Date.Day }}日
+                            </date>
+                            {{ with .Params.Categories }}
+                            <div class="post-meta">
+                                <span>|</span>
+                                {{ range . }}
+                                <span class="meta-category"><a
+                                        href="{{ "/categories/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></span>
+                                {{ end }}
+                            </div>
+                            {{ end }}
+                            <span class="post-word-count">|{{ .WordCount }} words</span>
+                            {{ if .Site.Params.busuanzi }}
+                            <div class="post-meta">
+                                <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                                        阅读</span></span>
+                            </div>
+                            <div class="post-meta animated slower fadeInUp">
+                                <i class="fa fa-clock-o"></i>&nbsp;| 阅读时间大约{{.ReadingTime}}分钟
+                            </div>
+                            {{ end }}
+                            {{ if .Params.toc }}
+                            <div class="clear" style="display: none">
+                                <div class="toc-article">
+                                    <div class="toc-title"><span></span>文章目录</div>
+                                </div>
+                            </div>
+                            {{ end }}
+                            <div class="post-content">
+                                    <!-- 只要一个div的class是social-share即可，内容会自动初始化 -->
+                                    {{ .Content }}
+                            </div>
+                           
+                            {{ partial "copyright" .}}
+                            <!--分享链接-->
+                            <br>
+                            <div class="social-share"><span>喜欢的话,您可以选择分享在</span>
+                                <link rel="stylesheet"
+                                    href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                                <script
+                                    src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                            </div>
+                            <br>
+                            <ol class="page-navigator">
+                                <div class="a">
+                                {{if (.Next)}}
+                                <p style="text-align: left;"><a href="{{ .Next.Permalink }}"><span style="color: crimson;"><<上一篇&nbsp;<i class="fa fa-angle-double-up" ></i></a>&nbsp;{{ .Next.LinkTitle }}<br /><br/></p>
+                                {{ end }}
+        
+                                {{if (.Prev)}}
+                                <p style="text-align: right;"><a href="{{ .Prev.Permalink }}"><span style="color: crimson;">下一篇>>&nbsp;<i class="fa fa-angle-double-down" ></i></a>&nbsp;{{ .Prev.LinkTitle }}
+                                {{ end }}
+                                </div>
+                            </ol>
+                        
+                            {{ partial "related" . }}
+        
+                            <div class="post-meta meta-tags">
+                                {{ if and (isset .Params "tags") .Params.tags }}
+                                <ul class="clearfix">
+                                    {{ range .Params.Tags }}
+                                    <li><a href="{{ "/tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+                                    {{ end }}
+                                </ul>
+                                {{ else }}
+                                没有标签
+                                {{ end }}
+                            </div>
+                            </br>
+                        </article>
+                        {{ partial "comments" . }}
+                    </div>
+                </div>
+                {{ partial "sidebar" . }}
+            </div>
+        </div>
+    </div>
+    {{ partial "footer" . }}
+    <script type="text/javascript">
+        (function(){
+            if (typeof self === 'undefined' || !self.Prism || !self.document) {
+                return;
+            }
+            if (!Prism.plugins.toolbar) {
+                console.warn('Copy to Clipboard plugin loaded before Toolbar plugin.');
+                return;
+            }
+            var ClipboardJS = window.ClipboardJS || undefined;
+            if (!ClipboardJS && typeof require === 'function') {
+                ClipboardJS = require('clipboard');
+            }
+            var callbacks = [];
+            if (!ClipboardJS) {
+                var script = document.createElement('script');
+                var head = document.querySelector('head');
+                script.onload = function() {
+                    ClipboardJS = window.ClipboardJS;
+                    if (ClipboardJS) {
+                        while (callbacks.length) {
+                            callbacks.pop()();
+                        }
+                    }
+                };
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js';
+                head.appendChild(script);
+            }
+            Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+                var linkCopy = document.createElement('button');
+                linkCopy.textContent = '复制代码';
+                if (!ClipboardJS) {
+                    callbacks.push(registerClipboard);
+                } else {
+                    registerClipboard();
+                }
+                return linkCopy;
+                function registerClipboard() {
+                    var clip = new ClipboardJS(linkCopy, {
+                        'text': function () {
+                            return env.code;
+                        }
+                    });
+                    clip.on('success', function() {
+                        linkCopy.textContent = '复制成功!';
+                        resetText();
+                    });
+                    clip.on('error', function () {
+                        linkCopy.textContent = '按 Ctrl+C 复制';
+                        resetText();
+                    });
+                }
+                function resetText() {
+                    setTimeout(function () {
+                        linkCopy.textContent = '复制代码';
+                    }, 5000);
+                }
+            });
+        })();
+
+        </script>
+        <script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']],
+          displayMath: [['$$','$$']],
+          processEscapes: true,
+          processEnvironments: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+          TeX: { equationNumbers: { autoNumber: "AMS" },
+               extensions: ["AMSmath.js", "AMSsymbols.js"] }
+        }
+        });
+        MathJax.Hub.Queue(function() {
+          // Fix <code> tags after MathJax finishes running. This is a
+          // hack to overcome a shortcoming of Markdown. Discussion at
+          // https://github.com/mojombo/jekyll/issues/199
+          var all = MathJax.Hub.getAllJax(), i;
+          for(i = 0; i < all.length; i += 1) {
+              all[i].SourceElement().parentNode.className += ' has-jax';
+          }
+        });
+      
+        MathJax.Hub.Config({
+        // Autonumbering by mathjax
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+        });
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+.product-image-overlay .product-image-overlay-close {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 100%;
+    margin-left: -60px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #eee;
+    line-height: 35px;
+    font-size: 20px;
+    color: #eee;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .product-image-overlay .product-image-overlay-close:hover {
+      color: #AAF;
+      border: 3px solid #AAF;
+  }
+  
+  .show_img {
+      transition: 0.3s;
+  }
+  
+  .show_img:hover {
+      -webkit-filter: invert(5%) brightness(200%);
+      filter: invert(5%) brightness(200%);
+  }
