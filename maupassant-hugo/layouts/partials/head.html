@@ -68,12 +68,12 @@
         <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
         <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
         <script type="text/javascript" src="/js/fireworks.js"></script>
-     <!-- require APlayer -->
+<!-- require APlayer -->
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
      <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
- <!-- require MetingJS -->
+<!-- require MetingJS -->
      <script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
+<!--悬浮音乐-->
     {{ range .Site.Params.customCSS }}
         <link rel="stylesheet" href="{{ "/css/" | relURL }}{{ . }}">
     {{ end }}
